@@ -3,8 +3,9 @@
 BaseModel that defines all common attributes/methods
 for other classes
 """    
-from uuid import uuid4
+import uuid
 from datetime import datetime
+import models
 
 class BaseModel():
     """
@@ -12,7 +13,7 @@ class BaseModel():
     """
 
     def __init__(self):
-        self.id = str(uuid4())
+        self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
 
@@ -42,7 +43,6 @@ class BaseModel():
             instance_to_dict["created_at"] = instance_to_dict["created_at"].isoformat()
         if not isinstance(instance_to_dict["updated_at"], str):
             instance_to_dict["updated_at"] = instance_to_dict["updated_at"].isoformat()
-
         return instance_to_dict
     
     
