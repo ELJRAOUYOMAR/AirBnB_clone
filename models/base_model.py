@@ -5,7 +5,8 @@ for other classes s
 """    
 import uuid
 from datetime import datetime
-import models
+from models import storage
+
 
 class BaseModel():
     """
@@ -29,6 +30,8 @@ class BaseModel():
                     if key in ['created_at', 'updated_at']:
                         value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
                     setattr(self, key, value)
+        else:
+            storage.new(self)
             
     def __str__(self) -> str:
         """Returns the string representation of an instance"""
@@ -42,7 +45,7 @@ class BaseModel():
         with the current datetime
         """
         self.updated_at = datetime.now()
-
+        storage.save()
     def to_dict(self) -> dict:
         """
         return a dictionary containing all keys/values
