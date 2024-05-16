@@ -17,7 +17,7 @@ class HBNBCommand(cmd.Cmd):
         """EOF (Ctrl+D) signal to exit the program"""
         return True
 
-    def empty_line(self):
+    def emptyline(self):
         """empty line + ENTER shouldn’t execute anything"""
         pass
 
