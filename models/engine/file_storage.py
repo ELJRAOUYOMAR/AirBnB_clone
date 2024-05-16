@@ -25,17 +25,22 @@ class FileStorage:
         """
         sets in __objects the obj with key <obj class name>.id
         """
-        id = obj.to_dict()["id"]
-        class_name = obj.__class__.__name
-        key_name = f"{class_name}.{id}"
+        class_name_of_obj = obj.__class__.__name__
+        key_name = "{}.{}".format(class_name_of_obj, obj.id)
         FileStorage.__objects[key_name] = obj
 
     def save(self):
         """
         serializes __objects to the JSON file (path: __file_path)
         """
+        objs = FileStorage.__objects
+        dict_obj = {}
+
+        for obj in objs.keys():
+            dict_obj[obj] = objs[obj].to_dict()
+
         with open(FileStorage.__file_path, 'w') as f:
-            json.dump(FileStorage.__objects, f)
+            json.dump(dict_obj, f)
 
     def reload(self):
         """
@@ -43,11 +48,16 @@ class FileStorage:
         exists ; otherwise, do nothing. If the file doesn’t exist,
         no exception should be raised)
         """
-        file_path = FileStorage.__file_path
-        if os.path.exists(file_path):
-            try:
-                with open(file_path, encoding="utf-8") as f:
-                    date = json.load(f)
-            except:
-                pass
+        if os.path.isfile(FileStorage.__file_path):
+            with open(FileStorage.__file_path, encoding="utf-8") as file:
+                try:
+                    dict_obj = json.load(file)
+
+                    for key, value in dict_obj.items():
+                        class_name, obj_id = key.split('.')
+                        cls = eval(class_name)
+                        instance = cls(**value)
+                        FileStorage.__objects[key] = instance
+                except Exception:
+                    pass
 
