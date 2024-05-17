@@ -1,12 +1,19 @@
 #!/usr/bin/python3
 """
-
+command line code.
+you can use your own command line for CRUD operation
 """
 import cmd
 import shlex
+from models.amenity import Amenity
 from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
 from models.user import User
 from models import storage 
+
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -14,7 +21,12 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     class_mapping = {
         "BaseModel": BaseModel,
-        "User": User
+        "User": User,
+        "Place": Place,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Review": Review
     }
 
     def do_quit(self, argument):
@@ -38,9 +50,8 @@ class HBNBCommand(cmd.Cmd):
         shlex class makes it easy to write lexical analyzers for simple
         syntaxes resembling that of the Unix shell.
         """
-        
         args = shlex.split(arg)
-        print(args)
+
         if not args:
             print("** class name missing **")
         elif args[0] not in self.class_mapping: 
