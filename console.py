@@ -164,7 +164,7 @@ class HBNBCommand(cmd.Cmd):
 
         instance = objs[key]
         
-        """Cast the attribute value to the correct type"""
+        """Cast the attribute value to the correct type."""
         attribute_type = type(getattr(instance, attribute_name, str))
         if attribute_type is int:
             attribute_value = int(attribute_value)
