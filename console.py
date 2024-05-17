@@ -36,7 +36,7 @@ class HBNBCommand(cmd.Cmd):
         -If the class name doesn’t exist, print ** class doesn't exist ** (ex: $ create MyModel)
         
         shlex class makes it easy to write lexical analyzers for simple
-        syntaxes resembling that of the Unix shell.
+        syntaxes resembling that of the Unix shell.s
         """
         
         args = shlex.split(arg)
