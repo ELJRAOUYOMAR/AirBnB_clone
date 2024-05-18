@@ -33,6 +33,10 @@ class HBNBCommand(cmd.Cmd):
         """command to exit the program"""
         return True
     
+    def help_quit(self):
+        """  """
+        print("Quit command to exit the program\n")
+    
     def do_EOF (self, argument):
         """EOF (Ctrl+D) signal to exit the program"""
         return True
@@ -186,18 +190,6 @@ class HBNBCommand(cmd.Cmd):
         instance.save()
         print(instance)
 
-    def cast_value(self, attr_name, value, obj):
-        """Casts the value to the correct type based on the attribute's current type."""
-        current_value = getattr(obj, attr_name, None)
-        
-        if current_value is None:
-            return value  # Fallback to string if attribute does not exist
-        if isinstance(current_value, int):
-            return int(value)
-        elif isinstance(current_value, float):
-            return float(value)
-        return value
-
     def do_count(self, class_name):
         """Retrieve the number of instances of a class."""
         objs = storage.all()
@@ -244,6 +236,19 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("*** Unknown syntax:", line)
         
+    """
+    def cast_value(self, attr_name, value, obj):
+        '''Casts the value to the correct type based on the attribute's current type.'''
+        current_value = getattr(obj, attr_name, None)
+        
+        if current_value is None:
+            return value  # Fallback to string if attribute does not exist
+        if isinstance(current_value, int):
+            return int(value)
+        elif isinstance(current_value, float):
+            return float(value)
+        return value
+    """
     
     
 if __name__ == '__main__':
