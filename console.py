@@ -185,6 +185,51 @@ class HBNBCommand(cmd.Cmd):
         setattr(instance, attribute_name, attribute_value)
         instance.save()
         print(instance)
+
+    def cast_value(self, attr_name, value, obj):
+        """Casts the value to the correct type based on the attribute's current type."""
+        current_value = getattr(obj, attr_name, None)
+        
+        if current_value is None:
+            return value  # Fallback to string if attribute does not exist
+        if isinstance(current_value, int):
+            return int(value)
+        elif isinstance(current_value, float):
+            return float(value)
+        return value
+
+    def default(self, line):
+        """
+        Catches commands not explicitly handled.
+        Handles <class name>.all(), <class name>.show(<id>), <class name>.destroy(<id>),
+        and <class name>.update(<id>, <attribute name>, <attribute value>) method calls.
+        """
+        args = line.split('.')
+        
+        if len(args) == 2:
+            class_name = args[0]
+            method_call = args[1]
+            if class_name in self.class_mapping:
+                if method_call == "all()":
+                    self.do_all(class_name)
+                elif method_call.startswith("show(") and method_call.endswith(")"):
+                    id = method_call[5:-1]
+                    self.do_show(f"{class_name} {id}")
+                elif method_call.startswith("destroy(") and method_call.endswith(")"):
+                    id = method_call[8:-1]
+                    self.do_destroy(f"{class_name} {id}")
+                elif method_call.startswith("update(") and method_call.endswith(")"):
+                    args = method_call[7:-1].split(', ')
+                    if len(args) == 3:
+                        self.do_update(f"{class_name} {args[0]} {args[1]} {args[2]}")
+                    else:
+                        print("*** Unknown syntax:", line)
+                else:
+                    print("*** Unknown syntax:", line)
+            else:
+                print("*** Unknown syntax:", line)
+        else:
+            print("*** Unknown syntax:", line)
         
     
 if __name__ == '__main__':
