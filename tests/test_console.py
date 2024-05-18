@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+'''Module for Base unit tests.'''
 import unittest
 from unittest.mock import patch
 from io import StringIO
@@ -6,11 +8,12 @@ from models import storage
 from models.base_model import BaseModel
 from models.user import User
 
+
 class TestHBNBCommand(unittest.TestCase):
     
     def setUp(self):
         """Sets up the test environment."""
-        storage.reset()  # Assuming you have a method to clear storage
+        storage.reset() 
 
     def test_quit(self):
         """Test quit command."""
