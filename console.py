@@ -198,6 +198,17 @@ class HBNBCommand(cmd.Cmd):
             return float(value)
         return value
 
+    def do_count(self, class_name):
+        """Retrieve the number of instances of a class."""
+        objs = storage.all()
+        
+        if class_name not in self.class_mapping:
+            print("** class doesn't exist **")
+            return
+
+        count = sum(1 for key in objs if key.split('.')[0] == class_name)
+        print(count)
+
     def default(self, line):
         """
         Catches commands not explicitly handled.
@@ -218,6 +229,8 @@ class HBNBCommand(cmd.Cmd):
                 elif method_call.startswith("destroy(") and method_call.endswith(")"):
                     id = method_call[8:-1]
                     self.do_destroy(f"{class_name} {id}")
+                elif method_call == "count()":
+                    self.do_count(class_name)
                 elif method_call.startswith("update(") and method_call.endswith(")"):
                     args = method_call[7:-1].split(', ')
                     if len(args) == 3:
@@ -231,6 +244,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("*** Unknown syntax:", line)
         
+    
     
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
