@@ -6,7 +6,6 @@ you can use your own command line for CRUD operation
 
 
 import cmd
-import json
 import shlex
 from models.amenity import Amenity
 from models.base_model import BaseModel
@@ -212,8 +211,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Catches commands not explicitly handled.
         Handles <class name>.all(), <class name>.show(<id>), <class name>.destroy(<id>),
-        <class name>.update(<id>, <attribute name>, <attribute value>),
-        and <class name>.update(<id>, <dictionary representation>) method calls.
+        and <class name>.update(<id>, <attribute name>, <attribute value>) method calls.
         """
         args = line.split('.')
         
@@ -232,47 +230,17 @@ class HBNBCommand(cmd.Cmd):
                 elif method_call == "count()":
                     self.do_count(class_name)
                 elif method_call.startswith("update(") and method_call.endswith(")"):
-                    args = method_call[7:-1]
-                    if args.startswith('"') and '", ' in args:
-                        id, dictionary = args.split('", ', 1)
-                        dictionary = json.loads(dictionary)
-                        self.update_with_dict(class_name, id.strip('"'), dictionary)
+                    args = method_call[7:-1].split(', ')
+                    if len(args) == 3:
+                        self.do_update(f"{class_name} {args[0]} {args[1]} {args[2]}")
                     else:
-                        args = args.split(', ')
-                        if len(args) == 3:
-                            self.do_update(f"{class_name} {args[0]} {args[1]} {args[2]}")
-                        else:
-                            print("*** Unknown syntax:", line)
+                        print("*** Unknown syntax:", line)
                 else:
                     print("*** Unknown syntax:", line)
             else:
                 print("*** Unknown syntax:", line)
         else:
             print("*** Unknown syntax:", line)
-
-    def update_with_dict(self, class_name, instance_id, dictionary):
-        """
-        Updates an instance based on the class name and id by adding or updating
-        attributes from a dictionary representation.
-        """
-        objs = storage.all()
-        key = f"{class_name}.{instance_id}"
-
-        if key not in objs:
-            print("** no instance found **")
-            return
-
-        instance = objs[key]
-        for attr_name, attr_value in dictionary.items():
-            attribute_type = type(getattr(instance, attr_name, str))
-            if attribute_type is int:
-                attr_value = int(attr_value)
-            elif attribute_type is float:
-                attr_value = float(attr_value)
-            setattr(instance, attr_name, attr_value)
-        
-        instance.save()
-        print(instance)
         
     """
     def cast_value(self, attr_name, value, obj):
