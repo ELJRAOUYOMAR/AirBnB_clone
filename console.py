@@ -2,6 +2,7 @@
 """
 command line code.
 you can use your own command line for CRUD operation, that's all!
+you gonna need 
 """
 import cmd
 import shlex
