@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 command line code.
-you can use your own command line for CRUD operation, that's all!ueeeeeeeeeeep
+you can use your own command line for CRUD operation, that's all!u
 """
 import cmd
 import shlex
