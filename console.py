@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """
 command line code.
-you can use your own command line for CRUD operation, that's all! 
+you can use your own command line for CRUD operation
 """
+
+
 import cmd
 import shlex
 from models.amenity import Amenity
@@ -12,7 +14,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-from models import storage 
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -32,12 +34,12 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, argument):
         """command to exit the program"""
         return True
-    
+
     def help_quit(self):
         """  """
         print("Quit command to exit the program\n")
     
-    def do_EOF (self, argument):
+    def do_EOF(self, argument):
         """EOF (Ctrl+D) signal to exit the program"""
         return True
 
@@ -46,11 +48,12 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Creates a new instance of BaseModel, saves it (to the JSON file) 
+        """Creates a new instance of BaseModel, saves it (to the JSON file)
         and prints the id. Ex: $ create BaseModel
-        -If the class name is missing, print ** class name missing ** (ex: $ create)
-        -If the class name doesn’t exist, print ** class doesn't exist ** (ex: $ create MyModel)
-        
+        -If the class name is missing, print ** class name missing **
+        (ex: $ create)
+        -If the class name doesn’t exist, print ** class doesn't exist **
+        (ex: $ create MyModel)
         shlex class makes it easy to write lexical analyzers for simple
         syntaxes resembling that of the Unix shell.
         """
@@ -71,10 +74,13 @@ class HBNBCommand(cmd.Cmd):
         Prints the string representation of an instance based on the class name and id.
         Ex: $ show BaseModel 1234-1234-1234
         -If the class name is missing, print ** class name missing ** (ex: $ show)
-        -If the class name doesn’t exist, print ** class doesn't exist ** (ex: $ show MyModel)
-        -If the id is missing, print ** instance id missing ** (ex: $ show BaseModel)
-        -If the instance of the class name doesn’t exist for the id, print ** no instance 
-         found ** (ex: $ show BaseModel 121212)
+        -If the class name doesn’t exist, print ** class doesn't exist **
+        (ex: $ show MyModel)
+        -If the id is missing, print ** instance id missing 
+        ** (ex: $ show BaseModel)
+        -If the instance of the class name doesn’t exist for the id,
+        print ** no instance 
+        found ** (ex: $ show BaseModel 121212)
         """
         args = shlex.split(arg)
 

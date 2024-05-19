@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 """ tests for BASEMODEl class """
-
-
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
@@ -51,7 +49,7 @@ class TestBaseModel(unittest.TestCase):
     def test_save(self, mock_save):
         """Test save method"""
         old_updated_at = self.model.updated_at
-        #Adding a small delay to ensure the time difference
+        # Adding a small delay to ensure the time difference
         from time import sleep
         sleep(0.1)
         self.model.save()
