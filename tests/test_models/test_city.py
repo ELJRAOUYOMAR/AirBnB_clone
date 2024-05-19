@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+""" City tests"""
+
+
 import unittest
 from models.city import City
 from models.base_model import BaseModel
