@@ -248,7 +248,7 @@ class HBNBCommand(cmd.Cmd):
         current_value = getattr(obj, attr_name, None)
         
         if current_value is None:
-            return value  # Fallback to string if attribute does not exist
+            return value  # Fallback to string if attribute does not exist.
         if isinstance(current_value, int):
             return int(value)
         elif isinstance(current_value, float):
