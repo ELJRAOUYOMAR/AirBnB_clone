@@ -70,14 +70,3 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 ![hbnb_step1](hbnb_step1.png)
 
 
-PC@DESKTOP-6JD0245 MINGW64 /d/Alx/AirBnB_clone (master)
-$ git add . && git commit -m "README File" && git push
-[master cefb108] README File
- 2 files changed, 70 insertions(+)
- create mode 100644 web_static/README.md
- create mode 100644 web_static/hbnb_step1.png
-Enumerating objects: 6, done.
-Counting objects: 100% (6/6), done.
-Delta compression using up to 12 threads
-Compressing objects: 100% (5/5), done.
-Writing objects: 100%
